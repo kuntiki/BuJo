@@ -1,0 +1,23 @@
+# TODO
+
+App
+
+- Nav
+-- Index
+-- Daily Log
+-- Monthly Log
+
+-- Index
+--- Goto Day
+--- Goto Month
+--- Goto Project / Ideas
+--- Goto Lists
+
+-- Daily Log
+--- Header Day
+---- New task form? Acá o en task list?
+--- Task List
+---- Task Line
+----- Task
+----- State (o event, . pending task, x completed, -- deleted, > transfered, < ??)
+----- Buttons (to change task states)
