@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Tasks } from '../api/tasks.js';
-
 export default class NewTaskForm extends Component {
 	insertTask(event) {
 		// Do not reload page
@@ -10,15 +8,12 @@ export default class NewTaskForm extends Component {
 		// Get task
 		const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
 		// Insert task
-		Tasks.insert({
-			text,
-			state: "pending",
-			createdAt: new Date(),
-			daily: true,
-			forDay: new Date(),
-		});
-		// Clean form
-		ReactDOM.findDOMNode(this.refs.textInput).value = '';
+		if (text != '') {
+			Meteor.call('addTaskForDay', text, () => {
+				// Clean form
+				ReactDOM.findDOMNode(this.refs.textInput).value = '';			
+			});
+		}
 	}
 
 	render() {

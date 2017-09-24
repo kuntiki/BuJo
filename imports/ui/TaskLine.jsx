@@ -4,7 +4,7 @@ import { Tasks } from '../api/tasks.js';
 
 export default class TaskLine extends Component {
 	deleteThisTask() {
-		Tasks.remove(this.props.task._id);
+		Meteor.call('deleteTask', this.props.task._id);
 	}
 
 	renderState(state) {
@@ -19,7 +19,7 @@ export default class TaskLine extends Component {
 
 	changeState() {
 		if (this.props.task.state === "pending") {
-			Tasks.update(this.props.task._id, { $set: { state: "completed" } });
+			Meteor.call('setComplete', this.props.task._id);
 		}
 	}
 

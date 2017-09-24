@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import NewTaskForm from './NewTaskForm.jsx';
 
@@ -6,7 +7,7 @@ export default class LogHeader extends Component {
 	render() {
 		return (
 			<div>
-				<h3>Log Header {this.props.date.toString()}</h3>
+				<h3>{this.props.date.toDateString()}</h3>
 				<NewTaskForm />
 			</div>
 		);
