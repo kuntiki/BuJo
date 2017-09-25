@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
 
-import { Tasks } from '../api/tasks.js';
 import TaskLine from './TaskLine.jsx'
 
-class TaskList extends Component {
+export default class TaskList extends Component {
 	renderTaskLines() {
 		let tasks = this.props.tasks;
 
@@ -29,8 +27,3 @@ class TaskList extends Component {
 	}
 }
 
-export default createContainer(() => {
-	return {
-		tasks: Tasks.find({}).fetch(),
-	};
-}, TaskList );
