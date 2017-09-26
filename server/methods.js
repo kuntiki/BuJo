@@ -1,13 +1,13 @@
 import { Tasks } from '../imports/api/tasks.js';
 
 Meteor.methods({
-	addTaskForDay(task) {
+	addTaskForDay({task, day}) {
 		Tasks.insert({
 			text: task,
 			state: "pending",
 			createdAt: new Date(),
 			daily: true,
-			forDay: new Date(),
+			forDay: day,
 		});
 	},
 	setComplete(taskId) {

@@ -27,7 +27,7 @@ export default class TaskLine extends Component {
 		return (
 			<li className="collection-item">
 				<button className="btn right" onClick={this.deleteThisTask.bind(this)}>&times;</button>
-				<button className="btn" onClick={this.changeState.bind(this)}>{this.renderState(this.props.task.state)}</button>&nbsp;
+				<button className="btn-floating red lighten-2" onClick={this.changeState.bind(this)}>{this.renderState(this.props.task.state)}</button>&nbsp;
 				{this.props.task.text}
 			</li>
 		);

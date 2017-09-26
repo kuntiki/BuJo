@@ -21,3 +21,6 @@ App
 ----- Task
 ----- State (o event, . pending task, x completed, -- deleted, > transfered, < ??)
 ----- Buttons (to change task states)
+
+
+. Incorporar material.js para tener botones con waves

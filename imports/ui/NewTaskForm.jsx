@@ -9,10 +9,16 @@ export default class NewTaskForm extends Component {
 		const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
 		// Insert task
 		if (text != '') {
-			Meteor.call('addTaskForDay', text, () => {
-				// Clean form
-				ReactDOM.findDOMNode(this.refs.textInput).value = '';			
-			});
+			if (this.props.forSection == "date") {
+				const newTask = {
+					task: text,
+					day: this.props.date,
+				}
+				Meteor.call('addTaskForDay', newTask, () => {
+					// Clean form
+					ReactDOM.findDOMNode(this.refs.textInput).value = '';			
+				});
+			}
 		}
 	}
 

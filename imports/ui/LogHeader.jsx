@@ -22,7 +22,7 @@ export default class LogHeader extends Component {
 					<span>{this.props.date.toDateString()}</span> 
 					<a className="waves-effect waves-teal btn-flat" onClick={this.handleTomorrow.bind(this)}><i className="medium material-icons">chevron_right</i></a> 
 				</h4>
-				<NewTaskForm />
+				<NewTaskForm forSection="date" date={this.props.date} />
 			</div>
 		);
 	}
