@@ -33,4 +33,6 @@ App
 
 
 . Incorporar material.js para tener botones con waves
-. Agregar otro route... Monthly
+x Agregar otro route... Monthly
+.. Hacer que form inserte forMonth en lugar de forDay
+.. Mostrar las tareas forMonth

@@ -1,8 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 
 export default class TaskLine extends Component {
+  constructor() {
+    super();
+    this.deleteThisTask = this.deleteThisTask.bind(this);
+    this.changeTaskState = this.changeTaskState.bind(this);
+  }
+
   deleteThisTask() {
     Meteor.call('deleteTask', this.props.task._id);
   }
@@ -13,25 +19,33 @@ export default class TaskLine extends Component {
     }
   }
 
-  renderTaskState(state) {
+  renderTaskState() {
     const stateDecorators = {
       pending: '.',
       completed: 'x',
       event: 'o',
     };
 
-    return stateDecorators[state];
+    return stateDecorators[this.props.task.state];
   }
 
   render() {
     return (
       <li className="collection-item">
-        <button className="btn right" onClick={this.deleteThisTask.bind(this)}>&times;</button>
-        <button className="btn-floating red lighten-2" onClick={this.changeTaskState.bind(this)}>
-          {this.renderTaskState(this.props.task.state)}
+        <button className="btn right" onClick={this.deleteThisTask}>&times;</button>
+        <button className="btn-floating red lighten-2" onClick={this.changeTaskState}>
+          {this.renderTaskState()}
         </button>&nbsp;
         {this.props.task.text}
       </li>
     );
   }
 }
+
+TaskLine.propTypes = {
+  task: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+};
