@@ -1,35 +1,37 @@
+import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 
-import { Tasks } from '../api/tasks.js';
 
 export default class TaskLine extends Component {
-	deleteThisTask() {
-		Meteor.call('deleteTask', this.props.task._id);
-	}
+  deleteThisTask() {
+    Meteor.call('deleteTask', this.props.task._id);
+  }
 
-	renderState(state) {
-		let stateDecorators = {
-			"pending": ".",
-			"completed": "x",
-			"event": "o",
-		}
+  changeTaskState() {
+    if (this.props.task.state === 'pending') {
+      Meteor.call('setComplete', this.props.task._id);
+    }
+  }
 
-		return stateDecorators[state];
-	}
+  renderTaskState(state) {
+    const stateDecorators = {
+      pending: '.',
+      completed: 'x',
+      event: 'o',
+    };
 
-	changeState() {
-		if (this.props.task.state === "pending") {
-			Meteor.call('setComplete', this.props.task._id);
-		}
-	}
+    return stateDecorators[state];
+  }
 
-	render() {
-		return (
-			<li className="collection-item">
-				<button className="btn right" onClick={this.deleteThisTask.bind(this)}>&times;</button>
-				<button className="btn-floating red lighten-2" onClick={this.changeState.bind(this)}>{this.renderState(this.props.task.state)}</button>&nbsp;
-				{this.props.task.text}
-			</li>
-		);
-	}
+  render() {
+    return (
+      <li className="collection-item">
+        <button className="btn right" onClick={this.deleteThisTask.bind(this)}>&times;</button>
+        <button className="btn-floating red lighten-2" onClick={this.changeTaskState.bind(this)}>
+          {this.renderTaskState(this.props.task.state)}
+        </button>&nbsp;
+        {this.props.task.text}
+      </li>
+    );
+  }
 }

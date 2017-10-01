@@ -22,5 +22,15 @@ App
 ----- State (o event, . pending task, x completed, -- deleted, > transfered, < ??)
 ----- Buttons (to change task states)
 
+-- Monthly Log
+--- Header Month
+---- New task form
+--- Task List
+---- Task Line
+----- Task
+----- State (o event, . pending task, x completed, -- deleted, > transfered, < ??)
+----- Buttons (to change task states)
+
 
 . Incorporar material.js para tener botones con waves
+. Agregar otro route... Monthly

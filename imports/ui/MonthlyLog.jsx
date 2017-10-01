@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { addNumDays } from '../utils/dateHelpers';
+import { addNumMonths } from '../utils/dateHelpers';
 
 import { Tasks } from '../api/tasks';
 import LogHeader from './LogHeader';
 import TaskList from './TaskList';
 
-class DailyLog extends Component {
+class MonthlyLog extends Component {
   constructor(props) {
     super(props);
 
@@ -20,39 +20,42 @@ class DailyLog extends Component {
   }
 
   // Search for tasks for given date
-  daysTasks() {
+  monthsTasks() {
     // Set the beginning and ending of date, so we can search for tasks with this date
     const dayBegin = new Date(this.state.logDate.getFullYear(),
       this.state.logDate.getMonth(),
-      this.state.logDate.getDate());
-    const dayEnd = addNumDays(dayBegin, 1);
+      1);
+    const dayEnd = addNumMonths(dayBegin, 1);
 
     // Search for tasks for state date
     return Tasks.find({ forDay: { $gte: dayBegin, $lt: dayEnd } }).fetch();
   }
 
-  // Change date stored in component's state by the given number of numDays
-  changeDate(numDays) {
+  // Change date stored in component's state by the given number of numMonths
+  changeDate(numMonths) {
     this.setState({
-      logDate: addNumDays(this.state.logDate, numDays),
+      logDate: addNumMonths(this.state.logDate, numMonths),
     });
   }
 
   render() {
     return (
       <div>
-        <h3>Daily Log</h3>
-        <LogHeader date={this.state.logDate} onChangeDate={numDays => this.changeDate(numDays)} />
-        <TaskList tasks={this.daysTasks()} />
+        <h3>Monthly Log</h3>
+        <LogHeader
+          date={this.state.logDate}
+          onChangeDate={numMonths => this.changeDate(numMonths)}
+        />
+        <TaskList tasks={this.monthsTasks()} />
       </div>
     );
   }
 }
 
-DailyLog.propTypes = {
+MonthlyLog.propTypes = {
   date: PropTypes.instanceOf(Date).isRequired,
 };
 
 export default createContainer(() => ({
   tasks: Tasks.find({}).fetch(),
-}), DailyLog);
+}), MonthlyLog);

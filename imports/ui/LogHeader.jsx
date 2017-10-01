@@ -1,33 +1,55 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import NewTaskForm from './NewTaskForm.jsx';
+import NewTaskForm from './NewTaskForm';
 
 export default class LogHeader extends Component {
-	handleYesterday() {
-		// Send the change date to parent
-		this.props.onChangeDate(-1);
-	}
+  constructor() {
+    super();
+    // Binding local functions so that we don't have to do it in render()
+    this.handleYesterday = this.handleYesterday.bind(this);
+    this.handleTomorrow = this.handleTomorrow.bind(this);
+  }
 
-	handleTomorrow() {
-		// Send the change date to parent
-		this.props.onChangeDate(1);
-	}
+  handleYesterday() {
+    // Send the change date to parent
+    this.props.onChangeDate(-1);
+  }
 
-	render() {
-		return (
-			<div>
-				<h4 className="valign-wrapper">
-					<a className="waves-effect waves-teal btn-flat" onClick={this.handleYesterday.bind(this)}><i className="medium material-icons">chevron_left</i></a> 
-					<span>{this.props.date.toDateString()}</span> 
-					<a className="waves-effect waves-teal btn-flat" onClick={this.handleTomorrow.bind(this)}><i className="medium material-icons">chevron_right</i></a> 
-				</h4>
-				<NewTaskForm forSection="date" date={this.props.date} />
-			</div>
-		);
-	}
-} 
+  handleTomorrow() {
+    // Send the change date to parent
+    this.props.onChangeDate(1);
+  }
 
-LogHeader.PropTypes = {
-	date: PropTypes.object.isRequired,
+  render() {
+    return (
+      <div>
+        <h4 className="valign-wrapper">
+          <a
+            href="#!"
+            className="waves-effect waves-teal btn-flat"
+            role="button"
+            onClick={this.handleYesterday}
+          >
+            <i className="medium material-icons">chevron_left</i>
+          </a>
+          <span>{this.props.date.toDateString()}</span>
+          <a
+            href="#!"
+            className="waves-effect waves-teal btn-flat"
+            role="button"
+            onClick={this.handleTomorrow}
+          >
+            <i className="medium material-icons">chevron_right</i>
+          </a>
+        </h4>
+        <NewTaskForm forSection="date" date={this.props.date} />
+      </div>
+    );
+  }
 }
+
+LogHeader.propTypes = {
+  date: PropTypes.instanceOf(Date).isRequired,
+  onChangeDate: PropTypes.func.isRequired,
+};
